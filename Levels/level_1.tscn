@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://c358bnsgt7oay"]
+[gd_scene load_steps=8 format=3 uid="uid://c358bnsgt7oay"]
 
 [ext_resource type="Script" path="res://Levels/level.gd" id="1_2inkd"]
 [ext_resource type="Texture2D" uid="uid://dj1f1ai8ottir" path="res://Assets/Images/purple.png" id="1_s0rsl"]
 [ext_resource type="PackedScene" uid="uid://cwx3a8l14lo56" path="res://Player/player.tscn" id="2_07d8f"]
+[ext_resource type="PackedScene" uid="uid://bt6rd1bo3b2yb" path="res://Levels/win_area.tscn" id="3_fabpb"]
 [ext_resource type="PackedScene" uid="uid://bxnh87k8147ku" path="res://Levels/maze.tscn" id="4_fwmv3"]
 [ext_resource type="FontFile" uid="uid://biec8q6qw8awm" path="res://Assets/Fonts/Kenney Pixel.ttf" id="5_5yaj5"]
 
@@ -29,7 +30,11 @@ stretch_mode = 1
 [node name="Maze" parent="." instance=ExtResource("4_fwmv3")]
 position = Vector2(592, 382)
 
+[node name="WinArea" parent="." instance=ExtResource("3_fabpb")]
+position = Vector2(743, 97)
+
 [node name="Player" parent="." instance=ExtResource("2_07d8f")]
+unique_name_in_owner = true
 z_index = 1
 position = Vector2(585, 318)
 
@@ -63,4 +68,22 @@ text = "- Use WASD to move
 label_settings = SubResource("LabelSettings_8tkl8")
 autowrap_mode = 2
 
+[node name="WinLabel" type="Label" parent="."]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 584.0
+offset_top = 69.0
+offset_right = 690.0
+offset_bottom = 123.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "YOU WIN!"
+label_settings = SubResource("LabelSettings_8tkl8")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
 [connection signal="body_exited" from="Maze" to="." method="_on_maze_body_exited"]
+[connection signal="body_entered" from="WinArea" to="." method="_on_win_area_body_entered"]
