@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://c358bnsgt7oay"]
+
+[ext_resource type="Script" path="res://Levels/level.gd" id="1_2inkd"]
+[ext_resource type="Texture2D" uid="uid://dj1f1ai8ottir" path="res://Assets/Images/purple.png" id="1_s0rsl"]
+[ext_resource type="PackedScene" uid="uid://cwx3a8l14lo56" path="res://Player/player.tscn" id="2_07d8f"]
+[ext_resource type="PackedScene" uid="uid://bxnh87k8147ku" path="res://Levels/maze.tscn" id="4_fwmv3"]
+[ext_resource type="FontFile" uid="uid://biec8q6qw8awm" path="res://Assets/Fonts/Kenney Pixel.ttf" id="5_5yaj5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8tkl8"]
+font = ExtResource("5_5yaj5")
+font_size = 32
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_2inkd")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="Background" type="TextureRect" parent="CanvasLayer"]
+offset_right = 1152.0
+offset_bottom = 648.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_s0rsl")
+stretch_mode = 1
+
+[node name="Maze" parent="." instance=ExtResource("4_fwmv3")]
+position = Vector2(592, 382)
+
+[node name="Player" parent="." instance=ExtResource("2_07d8f")]
+z_index = 1
+position = Vector2(585, 318)
+
+[node name="StartLabel" type="Label" parent="."]
+offset_left = 553.0
+offset_top = 243.0
+offset_right = 609.0
+offset_bottom = 270.0
+text = "START"
+label_settings = SubResource("LabelSettings_8tkl8")
+horizontal_alignment = 1
+
+[node name="EndLabel" type="Label" parent="."]
+offset_left = 717.0
+offset_top = 85.0
+offset_right = 773.0
+offset_bottom = 112.0
+text = "END
+"
+label_settings = SubResource("LabelSettings_8tkl8")
+horizontal_alignment = 1
+
+[node name="RulesLabel" type="Label" parent="."]
+offset_left = 67.0
+offset_top = 229.0
+offset_right = 374.0
+offset_bottom = 344.0
+text = "- Use WASD to move
+- Go from the START to the END
+- If you leave the maze, the game will restart"
+label_settings = SubResource("LabelSettings_8tkl8")
+autowrap_mode = 2
+
+[connection signal="body_exited" from="Maze" to="." method="_on_maze_body_exited"]
